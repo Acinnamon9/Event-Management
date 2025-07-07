@@ -2,7 +2,6 @@ package com.college.eventmanagement.dao;
 
 // Add these imports:
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import com.college.eventmanagement.util.HibernateUtil;
 import com.college.eventmanagement.entities.Event;
