@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.college.event</groupId>
+  <artifactId>event-management-2</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+<dependencies>
+    <!-- Hibernate Core -->
+    <dependency>
+        <groupId>org.hibernate.orm</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>6.5.2.Final</version> <!-- Replaced 6.x.x.Final with a specific version -->
+    </dependency>
+    <!-- Jakarta Persistence API (JPA) - required for @Entity and other annotations -->
+    <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+    <!-- Add your database driver (e.g., MySQL Connector/J) -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version> <!-- Replaced 8.0.x with a specific version -->
+    </dependency>
+</dependencies>
+</project>
