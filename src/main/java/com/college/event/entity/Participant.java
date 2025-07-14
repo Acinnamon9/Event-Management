@@ -1,33 +1,29 @@
 package com.college.event.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; // Correct import for Jakarta Persistence
 
 @Entity
-@Table(name = "participant")
+@Table(name = "participants")
 public class Participant {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "email")
-    private String email;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "event_id")
+    @ManyToOne
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
     // Constructors
     public Participant() {
     }
 
-    public Participant(String name, String email) {
-        this.name = name;
-        this.email = email;
+    public Participant(User user, Event event) {
+        this.user = user;
+        this.event = event;
     }
 
     // Getters and Setters
@@ -39,20 +35,12 @@ public class Participant {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Event getEvent() {
@@ -61,10 +49,5 @@ public class Participant {
 
     public void setEvent(Event event) {
         this.event = event;
-    }
-
-    @Override
-    public String toString() {
-        return "Participant [id=" + id + ", name=" + name + ", email=" + email + "]";
     }
 }

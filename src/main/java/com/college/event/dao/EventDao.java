@@ -2,9 +2,11 @@ package com.college.event.dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import com.college.event.entity.Event;
 import com.college.event.entity.Participant;
 import com.college.event.util.HibernateUtil;
+import java.util.List;
 
 public class EventDao {
 
@@ -60,4 +62,26 @@ public class EventDao {
             return null;
         }
     }
+
+    public List<Event> getAllEvents() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // HQL (Hibernate Query Language) to retrieve all Event objects
+            Query<Event> query = session.createQuery("FROM Event", Event.class);
+            return query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Event getEventById(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Event.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }
