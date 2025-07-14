@@ -232,8 +232,8 @@ README.md                           # This documentation file
 ### Steps
 1.  **Clone the Repository**
 ```shell script
-git clone <your-repository-url>
-    cd <project-directory>
+git clone https://github.com/Acinnamon9/Event-Management.git
+    cd Event-Management
 ```
 
 
