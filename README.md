@@ -20,10 +20,10 @@ The primary objective of this project is to apply and demonstrate proficiency in
 
 ## 🛠️ Technology Stack
 
-*   **Core Language:** Java 11+
+*   **Core Language:** Java 8
 *   **Build Tool:** Apache Maven
 *   **ORM Framework:** Hibernate
-*   **Database:** MySQL / PostgreSQL
+*   **Database:** MySQL
 *   **IDE:** IntelliJ IDEA / Eclipse
 
 ## 🗄️ Database Design
