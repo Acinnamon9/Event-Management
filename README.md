@@ -1,257 +1,265 @@
-# College Event Management System
+# Event Management System - Capstone Project
 
-This project is a comprehensive, console-based application for managing college events, developed as a capstone project for the completion of the Java Full Stack course at the **Anudip Foundation**.
+This is a console-based Event Management System developed in Java. It serves as a capstone project for the Java course completion at Anudip Foundation. The application provides a platform for users to organize and attend events, with distinct functionalities for different user roles.
 
-The system provides distinct functionalities for two types of users: **Organizers**, who can create and manage events, and **Attendees**, who can discover and register for them. The application is built using Java and leverages the Hibernate framework for Object-Relational Mapping (ORM) to interact with a relational database.
+**GitHub Repository:** [https://github.com/Acinnamon9/Event-Management.git](https://github.com/Acinnamon9/Event-Management.git)
 
-## 🎯 Project Goal
+## 1. Project Goal
 
-The primary objective of this project is to apply and demonstrate proficiency in building a data-centric application using Hibernate. It fulfills the course requirement of creating a real-world software project that involves database design, proper coding conventions, and thorough documentation, all while following a structured development lifecycle.
+The primary goal of this project is to create a robust and user-friendly console-based application for managing college events. The system is designed to cater to two main types of users: **Organizers**, who can create and manage events, and **Attendees**, who can discover and register for events. The application demonstrates core Java concepts, database interaction with Hibernate, and a clear separation of concerns in its architecture.
 
-## ✨ Key Features
+## 2. Key Features
 
-*   **Role-Based Access Control:** Separate dashboards and functionalities for 'Organizer' and 'Attendee' roles.
-*   **Event Management:** Organizers can create, update, delete, and view events.
-*   **Location Management:** Organizers can add and manage event venues, including address and capacity.
-*   **Attendee Registration:** Attendees can view all events, register for them, and cancel their registrations.
-*   **Capacity Control:** The system is designed to check location capacity before confirming a registration.
-*   **Centralized Database:** Uses a relational database (like MySQL or PostgreSQL) to persist all data.
-*   **ORM with Hibernate:** All database operations are handled efficiently through Hibernate's Session and HQL queries.
+The application is divided into functionalities based on user roles:
 
-## 🛠️ Technology Stack
+### For Organizers:
+*   **Event Management:** Create, view, update, and delete events.
+*   **Location Management:** Add new event locations and view all available locations.
+*   **Attendee Tracking:** View a list of registered attendees for each organized event.
 
-*   **Core Language:** Java 8
-*   **Build Tool:** Apache Maven
-*   **ORM Framework:** Hibernate
-*   **Database:** MySQL
-*   **IDE:** IntelliJ IDEA / Eclipse
+### For Attendees:
+*   **Event Discovery:** View a comprehensive list of all upcoming events.
+*   **Event Registration:** Register for any available event.
+*   **Manage Registrations:** View all registered events and cancel a registration.
 
-## 🗄️ Database Design
+### General Features:
+*   **User Authentication:** Secure login system for registered users.
+*   **User Registration:** Allows new attendees to create an account.
+*   **Role-Based Access Control:** The system provides different dashboards and functionalities based on whether the user is an 'organizer' or an 'attendee'.
 
-The database is normalized to reduce redundancy and ensure data integrity. The design centers around users, events, locations, and the registrations that link them together.
+## 3. Technology Stack
 
-### Entity Relationship Diagram (ERD)
+*   **Language:** Java 8
+*   **Framework:** Hibernate (for Object-Relational Mapping - ORM)
+*   **Persistence API:** Jakarta Persistence API (JPA)
+*   **Database:** A relational database is required (e.g., MySQL, PostgreSQL).
+*   **Build Tool:** Maven or Gradle (for managing dependencies).
+
+## 4. Database Design
+
+The database is designed to store information about users, events, locations, and the participation of users in events.
+
+### 4.1. Entity-Relationship Diagram (ERD)
+
+The following Mermaid diagram illustrates the relationships between the main entities in the system.
 
 ```mermaid
 erDiagram
-    USERS {
-        int user_id PK
+    USER {
+        int id PK
         varchar name
         varchar email
-        enum role
+        varchar password
+        varchar role
     }
 
-    EVENTS {
+    EVENT {
         int event_id PK
         varchar title
-        datetime start_time
-        int location_id
-        int organizer_id
+        varchar description
+        varchar start_time
+        varchar end_time
+        int location_id FK
+        int organizer_id FK
     }
 
-    LOCATIONS {
+    LOCATION {
         int location_id PK
         varchar name
-        text address
+        varchar address
         int capacity
     }
 
-    REGISTRATIONS {
-        int registration_id PK
-        int user_id
-        int event_id
-        enum status
+    PARTICIPANT {
+        int id PK
+        int user_id FK
+        int event_id FK
     }
 
-    TICKETS {
-        int ticket_id PK
-        int registration_id
-        varchar ticket_type
-        decimal price
-    }
-
-    EVENT_TAGS {
-        int tag_id PK
-        varchar name
-    }
-
-    EVENT_TAG_MAP {
-        int event_id
-        int tag_id
-    }
-
-    USERS ||--o{ EVENTS : "is organizer for"
-    LOCATIONS ||--o{ EVENTS : located_at
-    USERS ||--o{ REGISTRATIONS : registers_for
-    EVENTS ||--o{ REGISTRATIONS : has_registrations
-    REGISTRATIONS ||--|| TICKETS : "has one"
-    EVENTS ||--o{ EVENT_TAG_MAP : tagged_with
-    EVENT_TAGS ||--o{ EVENT_TAG_MAP : categorizes
-```
-
-
-### Table Schemas
-
-#### 1. `users`
-Stores information about both attendees and organizers.
-```sql
-CREATE TABLE users (
-    user_id       INT PRIMARY KEY AUTO_INCREMENT,
-    name          VARCHAR(100),
-    email         VARCHAR(100) UNIQUE,
-    password_hash VARCHAR(255), -- Should be a securely hashed password
-    role          ENUM('attendee', 'organizer') NOT NULL
-);
-```
-
-
-#### 2. `locations`
-Stores details about the event venues.
-```sql
-CREATE TABLE locations (
-    location_id  INT PRIMARY KEY AUTO_INCREMENT,
-    name         VARCHAR(255),
-    address      TEXT,
-    capacity     INT
-);
-```
-
-
-#### 3. `events`
-The core table containing event details, linked to a location and an organizer.
-```sql
-CREATE TABLE events (
-    event_id     INT PRIMARY KEY AUTO_INCREMENT,
-    title        VARCHAR(255),
-    description  TEXT,
-    start_time   DATETIME,
-    end_time     DATETIME,
-    location_id  INT,
-    organizer_id INT,
-    FOREIGN KEY (location_id) REFERENCES locations(location_id),
-    FOREIGN KEY (organizer_id) REFERENCES users(user_id)
-);
-```
-
-
-#### 4. `registrations`
-A mapping table that tracks which user has registered for which event.
-```sql
-CREATE TABLE registrations (
-    registration_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id         INT,
-    event_id        INT,
-    registered_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status          ENUM('confirmed', 'cancelled', 'waitlisted'),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (event_id) REFERENCES events(event_id),
-    UNIQUE (user_id, event_id) -- A user can only register for an event once
-);
-```
-
-
----
-
-## 🔁 User Flows
-
-The application logic follows these user flows based on the authenticated user's role.
-
-### 1. 🔐 Login / Register
-
-*   **Prompt:** `1. Login 2. Register 3. Exit`
-*   **Login:** Authenticates against the `users` table.
-*   **Register:** Inserts a new user with the default role of `attendee`.
-*   After a successful login, the system directs the user to the appropriate dashboard based on their role.
-
-### 2. 👨‍💼 Organizer Flow (`role` = 'organizer')
-```
---- ORGANIZER DASHBOARD ---
-1. Create Event
-2. View My Events
-3. View All Events
-4. Update Event
-5. Delete Event
-6. View Registered Attendees for Event
-7. View All Locations
-8. Add Location
-9. Logout
-```
-
-*   **Create Event:** Prompts for event details and links to a location and the current organizer.
-*   **View My Events:** Shows only the events created by the currently logged-in organizer.
-*   **Update/Delete Event:** Allows modification or removal of an event, but only if the current user is the organizer.
-*   **View Registered Attendees:** Lists all users confirmed for a specific event.
-*   **Add/View Locations:** Allows the organizer to manage the list of available venues.
-
-### 3. 🎓 Attendee Flow (`role` = 'attendee')
-```
---- ATTENDEE DASHBOARD ---
-1. View All Events
-2. Register for Event
-3. Cancel Registration
-4. View My Registered Events
-5. Logout
-```
-
-*   **View All Events:** Shows a list of all upcoming events with venue details.
-*   **Register for Event:** Allows a user to register for an event. The system checks for venue capacity and prevents duplicate registrations.
-*   **Cancel Registration:** Allows a user to remove their registration from an event.
-*   **View My Registered Events:** Shows a list of all events the user is currently registered for.
-
----
-
-## 📂 Project Structure
-
-The project follows the standard Maven directory layout. The source code is organized into packages based on functionality.
+    USER ||--o{ EVENT : "Organizes"
+    LOCATION ||--o{ EVENT : "Hosts"
+    USER ||--|{ PARTICIPANT : "Participates in"
+    EVENT ||--|{ PARTICIPANT : "Has"
 
 ```
-src
-└── main
-    ├── java
-    │   └── com
-    │       └── college
-    │           └── event
-    │               ├── dao         # Data Access Objects (for DB operations)
-    │               ├── entity      # Hibernate entity classes (maps to tables)
-    │               ├── main        # Main application entry point
-    │               └── util        # Utility classes (e.g., HibernateUtil)
-    └── resources
-        └── hibernate.cfg.xml       # Hibernate configuration file
-pom.xml                             # Maven project configuration
-README.md                           # This documentation file
+
+### 4.2. Table Schemas
+
+Here are the schemas for the tables used in the database:
+
+**`users`**
+| Column | Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the user. |
+| `name` | VARCHAR(255) | | Name of the user. |
+| `email` | VARCHAR(255) | UNIQUE, NOT NULL | Email address of the user (used for login). |
+| `password` | VARCHAR(255) | | Password for the user account. |
+| `role` | VARCHAR(255) | | Role of the user ('organizer' or 'attendee'). |
+
+**`events`**
+| Column | Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `event_id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the event. |
+| `title` | VARCHAR(255) | | Title of the event. |
+| `description` | TEXT | | A detailed description of the event. |
+| `start_time` | VARCHAR(255) | | The start date and time of the event. |
+| `end_time` | VARCHAR(255) | | The end date and time of the event. |
+| `location_id` | INT | FOREIGN KEY (locations.location_id) | The location where the event is held. |
+| `organizer_id` | INT | FOREIGN KEY (users.id) | The user who is organizing the event. |
+
+**`locations`**
+| Column | Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `location_id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the location. |
+| `name` | VARCHAR(255) | | The name of the location. |
+| `address` | VARCHAR(255) | | The physical address of the location. |
+| `capacity` | INT | | The maximum number of attendees for the location. |
+
+**`participants`**
+| Column | Type | Constraints | Description |
+| --- | --- | --- | --- |
+| `id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the participation record. |
+| `user_id` | INT | FOREIGN KEY (users.id), NOT NULL | The user who is participating. |
+| `event_id` | INT | FOREIGN KEY (events.event_id), NOT NULL | The event the user is participating in. |
+
+## 5. User Flows
+
+The application guides users through a series of console menus.
+
+1.  **Welcome Screen**: The user is presented with three options: Login, Register, or Exit.
+2.  **Registration**: A new user can register as an "attendee" by providing their name, email, and password.
+3.  **Login**: An existing user provides their email and password. The system authenticates the user and, based on their role, directs them to the appropriate dashboard.
+4.  **Organizer Dashboard**: After logging in, an organizer can choose to:
+    *   Create a new event.
+    *   View the events they have organized.
+    *   Update the details of an existing event.
+    *   Delete an event.
+    *   View the attendees for one of their events.
+    *   Add or view event locations.
+    *   Log out.
+5.  **Attendee Dashboard**: Upon logging in, an attendee can:
+    *   View all available events.
+    *   Register for an event.
+    *   View the events they are registered for.
+    *   Cancel their registration for an event.
+    *   Log out.
+
+## 6. Project Structure
+
+The project is organized into several packages to maintain a clean and scalable architecture.
+
+```
+com.college.event
+├── dao
+│   ├── EventDao.java
+│   ├── LocationDao.java
+│   ├── ParticipantDao.java
+│   └── UserDAO.java
+├── entity
+│   ├── Event.java
+│   ├── Location.java
+│   ├── Participant.java
+│   └── User.java
+├── main
+│   └── Main.java
+└── util
+    └── HibernateUtil.java
 ```
 
+*   `dao`: Contains Data Access Object classes responsible for database operations for each entity.
+*   `entity`: Contains the JPA entity classes that are mapped to database tables.
+*   `main`: Contains the `Main` class, which is the entry point of the application and handles user interaction.
+*   `util`: Includes utility classes, such as `HibernateUtil` for managing the Hibernate SessionFactory.
 
-## 🚀 How to Run the Application
+## 7. How to Run the Project
+
+To run this project, you will need to have Java, a build tool like Maven, and a relational database installed.
 
 ### Prerequisites
-*   Java Development Kit (JDK) 11 or higher
-*   Apache Maven
-*   A running instance of MySQL or PostgreSQL database server.
+*   Java Development Kit (JDK) 8 or later.
+*   Apache Maven.
+*   A relational database server (e.g., MySQL, PostgreSQL).
 
-### Steps
-1.  **Clone the Repository**
-```shell script
-git clone https://github.com/Acinnamon9/Event-Management.git
+### Setup and Configuration
+
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/Acinnamon9/Event-Management.git
     cd Event-Management
-```
+    ```
 
+2.  **Configure Dependencies (pom.xml):**
+    Ensure your `pom.xml` includes the necessary dependencies for Hibernate and your chosen database.
 
-2.  **Database Setup**
-    *   Create a new database (e.g., `college_event_db`).
-    *   Run the SQL scripts provided in the `database/` directory (or the schemas in this README) to create the tables.
+    **Example for Hibernate and MySQL:**
+    ```xml
+    <dependencies>
+        <!-- Hibernate Core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.15.Final</version>
+        </dependency>
 
-3.  **Configure Hibernate**
-    *   Open `src/main/resources/hibernate.cfg.xml`.
-    *   Update the database connection properties (URL, username, password) to match your database setup.
+        <!-- MySQL JDBC Driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+    </dependencies>
+    ```
 
-4.  **Build and Run**
-    *   Use Maven to compile the project and run the application.
-        *```shell script
-        mvn clean install
-        mvn exec:java -Dexec.mainClass="com.college.event.main.Main"
-```
+3.  **Configure Hibernate (`hibernate.cfg.xml`):**
+    Create a `hibernate.cfg.xml` file in the `src/main/resources` directory. This file contains the database connection and Hibernate configuration details.
 
-    *   The application will start in your console.
+    **Example `hibernate.cfg.xml` for MySQL:**
+    ```xml
+    <!DOCTYPE hibernate-configuration PUBLIC
+            "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+            "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+    <hibernate-configuration>
+        <session-factory>
+            <!-- Database connection settings -->
+            <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+            <property name="connection.url">jdbc:mysql://localhost:3306/your_database_name</property>
+            <property name="connection.username">your_username</property>
+            <property name="connection.password">your_password</property>
 
----
+            <!-- SQL dialect -->
+            <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+            <!-- Echo all executed SQL to stdout -->
+            <property name="show_sql">true</property>
+
+            <!-- Drop and re-create the database schema on startup -->
+            <property name="hbm2ddl.auto">update</property>
+
+            <!-- Mapped entity classes -->
+            <mapping class="com.college.event.entity.User"/>
+            <mapping class="com.college.event.entity.Event"/>
+            <mapping class="com.college.event.entity.Location"/>
+            <mapping class="com.college.event.entity.Participant"/>
+        </session-factory>
+    </hibernate-configuration>
+    ```
+    **Note:** Remember to create a database in your SQL server with the name you provide in `connection.url`.
+
+4.  **Create Initial Users (Optional but Recommended):**
+    To use the organizer features, you will need at least one user with the role "organizer". You can add this user directly to your database.
+
+    **Example SQL insert:**
+    ```sql
+    INSERT INTO users (name, email, password, role) VALUES ('Admin Organizer', 'admin@example.com', 'adminpass', 'organizer');
+    ```
+
+### Execution
+
+1.  **Build the Project:**
+    Use Maven to compile the project and download the dependencies.
+    ```bash
+    mvn clean install
+    ```
+
+2.  **Run the Application:**
+    Execute the `Main` class to start the application. You can do this from your IDE (like Eclipse or IntelliJ IDEA) or from the command line.
